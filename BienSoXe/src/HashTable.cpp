@@ -1,4 +1,4 @@
-#include "HashTable.h"
+#include "../include/HashTable.h"
 #include <iostream>
 #include <fstream>
 
@@ -44,20 +44,20 @@ void HashTable::insert(const string& license) {
 bool HashTable::search(const string& license) {
     string province = license.substr(0, 2);
     string ward = license.substr(3, 2);
-    int index = hashFunction(province, ward);
 
+    int index = hashFunction(province, ward);
     LicenseNode* curr = table[index];
+
     while (curr != nullptr) {
-        if (curr->license == license)
+        if (curr->license == license) {
             return true;
+        }
         curr = curr->next;
     }
     return false;
 }
 
 void HashTable::displayWardsByProvince(const string& province) {
-    cout << "Danh sach ma Xa cua Tinh " << province << ":\n";
-
     for (int i = 0; i < TABLE_SIZE; i++) {
         LicenseNode* curr = table[i];
         while (curr != nullptr) {
@@ -70,9 +70,6 @@ void HashTable::displayWardsByProvince(const string& province) {
 }
 
 void HashTable::displayLicensesByWard(const string& province, const string& ward) {
-    cout << "Danh sach bien so cua Xa " << ward
-         << " - Tinh " << province << ":\n";
-
     int index = hashFunction(province, ward);
     LicenseNode* curr = table[index];
 
@@ -84,19 +81,46 @@ void HashTable::displayLicensesByWard(const string& province, const string& ward
     }
 }
 
-void HashTable::loadFromFile(const string& filename) {
+void HashTable::loadProvinceFile(const string& filename) {
     ifstream file(filename);
-    if (!file.is_open()) {
-        cout << "Khong mo duoc file!\n";
-        return;
-    }
+    if (!file.is_open()) return;
 
-    string license;
-    while (getline(file, license)) {
-        if (!license.empty()) {
-            insert(license);
-        }
-    }
+    string line;
+    while (getline(file, line)) {
+        if (line.empty()) continue;
 
+        int pos = line.find(",");
+        string code = line.substr(0, pos);
+        string name = line.substr(pos + 1);
+
+        provinces[code] = name;
+    }
     file.close();
+}
+
+void HashTable::loadWardFile(const string& filename) {
+    ifstream file(filename);
+    if (!file.is_open()) return;
+
+    string line;
+    while (getline(file, line)) {
+        if (line.empty()) continue;
+
+        int pos = line.find(",");
+        string code = line.substr(0, pos);
+        string name = line.substr(pos + 1);
+
+        wards[code] = name;
+    }
+    file.close();
+}
+
+string HashTable::getProvinceName(const string& code) {
+    if (provinces.count(code)) return provinces[code];
+    return "";
+}
+
+string HashTable::getWardName(const string& code) {
+    if (wards.count(code)) return wards[code];
+    return "";
 }

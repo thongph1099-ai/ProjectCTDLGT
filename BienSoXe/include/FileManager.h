@@ -1,22 +1,14 @@
 #ifndef FILEMANAGER_H
 #define FILEMANAGER_H
 
-#include "LicensePlate.h"
+#include <map>
+#include <string>
 
-#define MAX_PLATES 100
+using namespace std;
 
-struct ManageLicensePlate
-{
-    LicensePlate plates[MAX_PLATES];
-    int count;
-};
+extern map<string, string> provinces;
+extern map<string, string> wards;
 
-void initManageLicensePlate(ManageLicensePlate& m);
-void addLicensePlate(ManageLicensePlate& m);
-void printLicensePlate(const ManageLicensePlate& m);
-int findLicensePlate(const ManageLicensePlate& m, int id);
-
-void sortByProvinceCode(ManageLicensePlate& m);
-void sortByWardCode(ManageLicensePlate& m);
+void loadFromTxt(const string& filename);
 
 #endif

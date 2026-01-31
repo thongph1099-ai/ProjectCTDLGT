@@ -1,104 +1,32 @@
-#include "FileManager.h"
+#include "../include/FileManager.h"
+#include <fstream>
+#include <sstream>
 
-void initManageLicensePlate(ManageLicensePlate& m)
-{
-	m.count = 0;
-}
+map<string, string> provinces;
+map<string, string> wards;
 
-void addLicensePlate(ManageLicensePlate& m)
-{
-    if (m.count >= MAX_PLATES)
-    {
-        cout << "Danh sach da day!" << endl;
-        return;
-    }
+void loadFromTxt(const string& filename) {
+    ifstream file(filename);
+    string line;
 
-    LicensePlate& lp = m.plates[m.count];
+    if (!file.is_open()) return;
 
-    cout << "Nhap ID: ";
-    cin >> lp.id;
+    while (getline(file, line)) {
+        if (line.empty()) continue;
 
-    cout << "Nhap ma tinh: ";
-    cin >> lp.provinceCode;
+        stringstream ss(line);
+        string code, name;
 
-    cout << "Nhap ma phuong: ";
-    cin >> lp.wardCode;
+        getline(ss, code, ',');
+        getline(ss, name);
 
-    m.count++;
-    cout << "Them bien so thanh cong!" << endl;
-}
-
-void printLicensePlate(const ManageLicensePlate& m)
-{
-    if (m.count == 0)
-    {
-        cout << "Chua co bien so nao!\n";
-        return;
-    }
-
-    for (int i = 0; i < m.count; i++)
-    {
-        cout << "\nBien so thu " << i + 1 << endl;
-        cout << "ID: " << m.plates[i].id << endl;
-        cout << "Province: " << m.plates[i].provinceCode << endl;
-        cout << "Ward: " << m.plates[i].wardCode << endl;
-    }
-}
-
-int findLicensePlate(const ManageLicensePlate& m, int id)
-{
-    for (int i = 0; i < m.count; i++)
-    {
-        if (m.plates[i].id == id)
-            return i;
-    }
-    return -1;
-}
-
-void sortByProvinceCode(ManageLicensePlate& m)
-{
-    int n = m.count;
-
-    for (int gap = n / 2; gap > 0; gap /= 2)
-    {
-        for (int i = gap; i < n; i++)
-        {
-            LicensePlate temp = m.plates[i];
-            int j;
-
-            for (j = i; j >= gap &&
-                m.plates[j - gap].provinceCode > temp.provinceCode;
-                j -= gap)
-            {
-                m.plates[j] = m.plates[j - gap];
-            }
-
-            m.plates[j] = temp;
+        if (code.size() == 2) {
+            provinces[code] = name;
+        }
+        else if (code.size() == 5) {
+            wards[code] = name;
         }
     }
-    cout << "Danh sach bien so xe theo tinh: " << endl;
-}
 
-void sortByWardCode(ManageLicensePlate& m)
-{
-    int n = m.count;
-
-    for (int gap = n / 2; gap > 0; gap /= 2)
-    {
-        for (int i = gap; i < n; i++)
-        {
-            LicensePlate temp = m.plates[i];
-            int j;
-
-            for (j = i; j >= gap &&
-                m.plates[j - gap].wardCode > temp.wardCode;
-                j -= gap)
-            {
-                m.plates[j] = m.plates[j - gap];
-            }
-
-            m.plates[j] = temp;
-        }
-    }
-    cout << "Danh sach bien so xe theo xa: " << endl;
+    file.close();
 }

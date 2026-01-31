@@ -1,10 +1,17 @@
 #include <iostream>
 #include <string>
+#include <map>
 
-#include "LinkedList.h"
-#include "HashTable.h"
+#include "../include/LinkedList.h"
+#include "../include/HashTable.h"
+#include "../include/FileManager.h"
+#include "../include/LicensePlate.h"
 
 using namespace std;
+
+extern map<string, string> provinces;
+extern map<string, string> wards;
+
 
 void menu() {
     cout << "\n===== HE THONG QUAN LY BIEN SO XE =====\n";
@@ -21,6 +28,10 @@ void menu() {
 int main() {
     LinkedList list;
     HashTable table;
+
+    loadFromTxt("provinceCode.txt");
+    loadFromTxt("wardCode.txt");
+
 
     int choice;
     do {
@@ -42,8 +53,8 @@ int main() {
             getline(cin, type);
 
             LicensePlate lp(plate, owner, type);
-            list.insert(lp);       // LinkedList luu day du
-            table.insert(plate);   // HashTable phuc vu tra cuu
+            list.insert(lp);
+            table.insert(plate);
 
             cout << "Dang ky thanh cong!\n";
             break;
@@ -54,10 +65,24 @@ int main() {
             cout << "Nhap bien so can tra cuu: ";
             getline(cin, plate);
 
-            if (table.search(plate))
-                cout << "Bien so TON TAI trong he thong!\n";
-            else
+            if (!table.search(plate)) {
                 cout << "Khong tim thay bien so!\n";
+                break;
+            }
+
+            LicensePlate* result = list.search(plate);
+            if (result == nullptr) {
+                cout << "Khong co thong tin chi tiet!\n";
+                break;
+            }
+
+            string provinceCode = plate.substr(0, 2);
+            string wardCode = plate.substr(0, 5);
+
+            cout << "\n=== THONG TIN BIEN SO ===\n";
+            result->display();
+            cout << "Tinh: " << provinces[provinceCode] << endl;
+            cout << "Xa  : " << wards[wardCode] << endl;
             break;
         }
 
@@ -66,7 +91,13 @@ int main() {
             cout << "Nhap ma Tinh (ab): ";
             getline(cin, province);
 
-            table.displayWardsByProvince(province);
+            cout << "Danh sach ma Xa cua Tinh " << province << ":\n";
+
+            for (auto& w : wards) {
+                if (w.first.substr(0, 2) == province) {
+                    cout << w.first.substr(3, 2) << " - " << w.second << endl;
+                }
+            }
             break;
         }
 
@@ -74,10 +105,8 @@ int main() {
             string province, ward;
             cout << "Nhap ma Tinh (ab): ";
             getline(cin, province);
-
             cout << "Nhap ma Xa (cd): ";
             getline(cin, ward);
-
             table.displayLicensesByWard(province, ward);
             break;
         }

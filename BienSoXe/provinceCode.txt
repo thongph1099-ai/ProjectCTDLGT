@@ -1,0 +1,12 @@
+01,Ha Noi
+02,Ha Giang
+04,Cao Bang
+08,Tuyen Quang
+19,Thai Nguyen
+30,Hai Phong
+31,Da Nang
+48,Dak Lak
+50,TP Ho Chi Minh
+52,Binh Duong
+60,Dong Nai
+79,Khanh Hoa

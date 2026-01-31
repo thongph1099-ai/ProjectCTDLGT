@@ -1,22 +1,23 @@
 #include "LicensePlate.h"
 
 LicensePlate::LicensePlate() {
-    plateNumber = "";
-    ownerName = "";
-    vehicleType = "";
+    id = "";
+    provinceCode = "";
+    wardCode = "";
     next = nullptr;
 }
 
-LicensePlate::LicensePlate(string plate, string owner, string type) {
-    plateNumber = plate;
-    ownerName = owner;
-    vehicleType = type;
+LicensePlate::LicensePlate(string id, string province, string ward) {
+    this->id = id;
+    this->provinceCode = province;
+    this->wardCode = ward;
     next = nullptr;
 }
 
 void LicensePlate::display() {
-    cout << "Bien so: " << plateNumber << endl;
-    cout << "Chu xe : " << ownerName << endl;
-    cout << "Loai xe: " << vehicleType << endl;
+    cout << "ID: " << id << endl;
+    cout << "Ma tinh: " << provinceCode << endl;
+    cout << "Ma phuong: " << wardCode << endl;
     cout << "---------------------------" << endl;
 }
+

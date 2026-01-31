@@ -7,13 +7,16 @@
 using namespace std;
 
 struct LicensePlate {
-    string plateNumber;    
-    string ownerName;      
-    string vehicleType;   
-    LicensePlate* next;    
+    string id;
+    string provinceCode;
+    string wardCode;
+
+    LicensePlate* next;
+
     LicensePlate();
-    LicensePlate(string plate, string owner, string type);
+    LicensePlate(string id, string province, string ward);
     void display();
 };
 
-#endif
+
+#endif  

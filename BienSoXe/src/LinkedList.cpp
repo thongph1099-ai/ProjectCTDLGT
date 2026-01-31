@@ -26,7 +26,7 @@ void LinkedList::insert(LicensePlate plate) {
 bool LinkedList::find(string plateStr) {
     Node* curr = head;
     while (curr) {
-        if (curr->data.plateNumber == plateStr)
+        if (curr->data.id == plateStr)
             return true;
         curr = curr->next;
     }
@@ -73,7 +73,7 @@ Node* LinkedList::merge(Node* a, Node* b) {
     if (!b) return a;
 
     Node* result;
-    if (a->data.plateNumber <= b->data.plateNumber) {
+    if (a->data.id <= b->data.id) {
         result = a;
         result->next = merge(a->next, b);
     } else {
@@ -89,7 +89,7 @@ void LinkedList::displayByProvince(string province) {
     sort();
     Node* curr = head;
     while (curr) {
-        string plate = curr->data.plateNumber;
+        string plate = curr->data.id;
         string plateProvince = plate.substr(0, 2);
 
         if (plateProvince == province)
@@ -103,7 +103,7 @@ void LinkedList::displayByDistrict(string district) {
     sort();
     Node* curr = head;
     while (curr) {
-        string plate = curr->data.plateNumber;
+        string plate = curr->data.id;
         string plateDistrict = plate.substr(3, 2);
 
         if (plateDistrict == district)
@@ -122,3 +122,12 @@ void LinkedList::displayAll() {
     }
 }
 
+LicensePlate* LinkedList::search(string plate) {
+    Node* temp = head;
+    while (temp != nullptr) {
+        if (temp->data.id == plate) 
+            return &temp->data;
+        temp = temp->next;
+    }
+    return nullptr;
+}

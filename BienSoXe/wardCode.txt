@@ -1,0 +1,16 @@
+01-01,Ba Dinh
+01-02,Hoan Kiem
+01-03,Dong Da
+
+50-01,Quan 1
+50-02,Quan 2
+50-03,Quan 3
+
+79-01,Nha Trang
+79-02,Cam Lam
+
+52-01,Thu Dau Mot
+52-02,Di An
+
+60-01,Bien Hoa
+60-02,Long Thanh

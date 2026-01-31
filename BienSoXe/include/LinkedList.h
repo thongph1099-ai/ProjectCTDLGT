@@ -27,6 +27,7 @@ public:
     void displayByProvince(string province);
     void displayByDistrict(string district);
     void displayAll();
+    LicensePlate* search(string plate);
 };
 
 #endif
