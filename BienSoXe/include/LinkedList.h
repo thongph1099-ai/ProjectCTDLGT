@@ -26,6 +26,7 @@ public:
     void sort(); 
     void displayByProvince(string province);
     void displayByDistrict(string district);
+    void displayAll();
 };
 
 #endif
