@@ -12,7 +12,6 @@ using namespace std;
 extern map<string, string> provinces;
 extern map<string, string> wards;
 
-
 void menu() {
     cout << "\n===== HE THONG QUAN LY BIEN SO XE =====\n";
     cout << "1. Dang ky bien so moi\n";
@@ -21,25 +20,24 @@ void menu() {
     cout << "4. Hien thi danh sach bien so cua mot Xa\n";
     cout << "5. Hien thi tat ca bien so\n";
     cout << "0. Thoat\n";
-    cout << "=====================================\n";
-    cout << "Chon: ";
 }
 
 int main() {
     LinkedList list;
     HashTable table;
 
-    loadFromTxt("provinceCode.txt");
-    loadFromTxt("wardCode.txt");
-
+    loadData();
+    menu();
 
     int choice;
     do {
-        menu();
+        cout << "=====================================\n";
+        cout << "Chon: ";
         cin >> choice;
         cin.ignore();
 
         switch (choice) {
+
         case 1: {
             string plate, owner, type;
 
@@ -92,7 +90,6 @@ int main() {
             getline(cin, province);
 
             cout << "Danh sach ma Xa cua Tinh " << province << ":\n";
-
             for (auto& w : wards) {
                 if (w.first.substr(0, 2) == province) {
                     cout << w.first.substr(3, 2) << " - " << w.second << endl;
@@ -107,6 +104,7 @@ int main() {
             getline(cin, province);
             cout << "Nhap ma Xa (cd): ";
             getline(cin, ward);
+
             table.displayLicensesByWard(province, ward);
             break;
         }

@@ -8,13 +8,13 @@ using namespace std;
 
 struct LicensePlate {
     string id;
-    string provinceCode;
-    string wardCode;
+    string owner_name;
+    string driver_type;
 
     LicensePlate* next;
 
     LicensePlate();
-    LicensePlate(string id, string province, string ward);
+    LicensePlate(string id, string owner, string type);
     void display();
 };
 

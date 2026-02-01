@@ -2,6 +2,10 @@
 01-02,Hoan Kiem
 01-03,Dong Da
 
+02-01,Thanh Pho Ha Giang
+02-02,Dong Van
+02-03,Meo Vac
+
 50-01,Quan 1
 50-02,Quan 2
 50-03,Quan 3

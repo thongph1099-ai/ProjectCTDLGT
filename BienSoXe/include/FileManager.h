@@ -9,6 +9,6 @@ using namespace std;
 extern map<string, string> provinces;
 extern map<string, string> wards;
 
-void loadFromTxt(const string& filename);
+void loadData();
 
 #endif
